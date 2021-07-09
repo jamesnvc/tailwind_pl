@@ -235,7 +235,7 @@ info_page -->
 
 app_nav(Active) -->
     html(
-        nav([class("bg-red-50 md:mt-1")],
+        nav([class("bg-red-50 md:mt-1 h-100%")],
             \nav_links(Active, [home_page-"Main Page", info_page-"Info"]))).
 
 nav_links(_, []) --> [].
