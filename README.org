@@ -5,6 +5,12 @@ Based on [[https://github.com/green-coder/girouette][Girouette]], Tailwind_pl is
 This lets you use Tailwind-style classes, but without the overhead of having to pull in an enormous stylesheet with all possible styles.
 This also allows more dynamic class-names that, with exact colours or numbers that would otherwise be unreasonable to use.
 
+** Installation
+
+#+begin_src prolog
+  ?- pack_install(tailwind_pl).
+#+end_src
+
 ** Example Usage
 
 
