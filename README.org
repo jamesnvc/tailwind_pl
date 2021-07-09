@@ -17,6 +17,7 @@ This also allows more dynamic class-names that, with exact colours or numbers th
 #+begin_src prolog
   :- module(myapp, [go/1]).
 
+  :- use_module(library(filesex), [directory_file_path/3, make_directory_path/1]).
   :- use_module(library(http/http_dispatch), [http_redirect/3,
                                               http_dispatch/1,
                                               http_reply_file/3,
