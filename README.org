@@ -26,6 +26,8 @@ This also allows more dynamic class-names that, with exact colours or numbers th
   :- use_module(library(http/html_write), [html//1,
                                            reply_html_page/2,
                                            html_receive//1]).
+  :- use_module(library(http/thread_httpd), [http_server/2,
+                                             http_stop_server/2]).
   :- use_module(library(tailwind), [start_watching_dirs/3,
                                     stop_watching_dirs/1,
                                     reset_style/1]).
@@ -33,7 +35,6 @@ This also allows more dynamic class-names that, with exact colours or numbers th
   %! go(+Port) is det.
   %  Interactive entry point to start the server.
   go(Port) :-
-      set_cleanup_handlers,
       start_css_watcher,
       http_server(http_dispatch, [port(Port)]).
 
@@ -91,15 +92,19 @@ This also allows more dynamic class-names that, with exact colours or numbers th
 
   % Home Page
 
-  home_page(Info) -->
+  home_page -->
       html(
           div(class(["flex-col", "text-purple-500", 'bg-rose-50']),
               [h2(class(['text-lg',
                          'hover:animation-ping',
                          'bg-green-300', 'hover:text-rose-100']),
                   "Info"),
-               p(class(["text-sm"]),
-                 "here's some stuff, some information")
+               \p("here's some stuff, some information"),
+               \p("Another paragraph")
               ])
       ).
+
+  p(Text) -->
+      html(p(class(['text-sm', 'text-blue', 'hover:opacity-50']),
+             Text)).
 #+end_src
