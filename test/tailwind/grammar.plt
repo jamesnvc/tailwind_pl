@@ -180,7 +180,7 @@ test(divide_style_1,
     phrase(tailwind(Style), `divide-dotted`).
 
 test(ring_style_1,
-    [ true(Style == 'box-shadow'("var(--pl-ring-inset, ) 0 0 0 calc(3px var(--pl-ring-offset-width,0px)) var(--pl-ring-color)")) ]) :-
+    [ true(Style == 'box-shadow'("var(--pl-ring-inset, ) 0 0 0 calc(3px + var(--pl-ring-offset-width,0px)) var(--pl-ring-color)")) ]) :-
     phrase(tailwind(Style), `ring`).
 test(ring_style_2,
     [ true(Style == 'box-shadow'("var(--pl-ring-inset, ) 0 0 0 calc(7rem + var(--pl-ring-offset-width,0px)) var(--pl-ring-color)")) ]) :-

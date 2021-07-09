@@ -433,7 +433,7 @@ tailwind('box-shadow'(Style)) -->
              "var(--pl-ring-inset, ) 0 0 0 calc(~w + var(--pl-ring-offset-width,0px)) var(--pl-ring-color)",
             [LenCss]) }.
 % needs to come after all the other "ring" styles
-tailwind('box-shadow'("var(--pl-ring-inset, ) 0 0 0 calc(3px var(--pl-ring-offset-width,0px)) var(--pl-ring-color)")) -->
+tailwind('box-shadow'("var(--pl-ring-inset, ) 0 0 0 calc(3px + var(--pl-ring-offset-width,0px)) var(--pl-ring-color)")) -->
     "ring", !.
 
 border_direction(Attr) -->
