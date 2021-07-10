@@ -7,11 +7,11 @@
 :- use_module(library(yall)).
 
 :- use_module(tw_utils).
-:- use_module(colors, [color//1,
-                       has_alpha/1,
-                       color_css/2,
-                       as_transparent/2,
-                       color_with_alpha/3]).
+:- use_module(colours, [colour//1,
+                        has_alpha/1,
+                        colour_css/2,
+                        as_transparent/2,
+                        colour_with_alpha/3]).
 
 prefixes(Medias, States) -->
     media_queries(Medias), state_variants(States).
@@ -217,16 +217,16 @@ tailwind('background-clip'(Box)) -->
     one_of(["border", "padding", "content"], Type), !,
     { format(string(Box), "~w-box", [Type]) }.
 
-color_bg(special(S), S) :- !.
-color_bg(Color, CssColor) :-
-    ( has_alpha(Color)
-    -> Color_ = Color
-    ;  color_with_alpha(Color, "var(--pl-bg-opacity, 1)", Color_) ),
-    color_css(Color_, CssColor).
+colour_bg(special(S), S) :- !.
+colour_bg(Colour, CssColour) :-
+    ( has_alpha(Colour)
+    -> Colour_ = Colour
+    ;  colour_with_alpha(Colour, "var(--pl-bg-opacity, 1)", Colour_) ),
+    colour_css(Colour_, CssColour).
 
-tailwind('background-color'(CssColor)) -->
-    "bg-", color(Color), !,
-    { color_bg(Color, CssColor) }.
+tailwind('background-color'(CssColour)) -->
+    "bg-", colour(Colour), !,
+    { colour_bg(Colour, CssColour) }.
 
 tailwind('--pl-bg-opacity'(Opacity)) -->
     "bg-opacity-", num(N), !,
@@ -272,27 +272,27 @@ tailwind('background-image'(Grad)) -->
     { format(string(Grad), "linear-gradient(to ~w, var(--pl-gradient-stops))",
              [Dir]) }.
 
-tailwind(['--pl-gradient-from'(ColorCss),
+tailwind(['--pl-gradient-from'(ColourCss),
           '--pl-gradient-stops'(Stops)]) -->
-    "from-", color(Color), !,
-    { color_css(Color, ColorCss),
-      as_transparent(Color, TranspColor), color_css(TranspColor, TranspColorCss),
+    "from-", colour(Colour), !,
+    { colour_css(Colour, ColourCss),
+      as_transparent(Colour, TranspColour), colour_css(TranspColour, TranspColourCss),
       format(string(Stops),
             "var(--pl-gradient-from), var(--pl-gradient-to, ~w)",
-            [TranspColorCss]) }.
+            [TranspColourCss]) }.
 
-tailwind('--pl-gradient-to'(ColorCss)) -->
-    "to-", color(Color), !,
-    { color_css(Color, ColorCss) }.
+tailwind('--pl-gradient-to'(ColourCss)) -->
+    "to-", colour(Colour), !,
+    { colour_css(Colour, ColourCss) }.
 
 tailwind('--pl-gradient-stops'(Stops)) -->
-    "via-", color(Color), !,
-    { as_transparent(Color, ColorTransp),
-      color_css(Color, ColorCss),
-      color_css(ColorTransp, ColorTranspCss),
+    "via-", colour(Colour), !,
+    { as_transparent(Colour, ColourTransp),
+      colour_css(Colour, ColourCss),
+      colour_css(ColourTransp, ColourTranspCss),
       format(string(Stops),
             "var(--pl-gradient-from),~w,var(--pl-gradient-to,~w)",
-            [ColorCss, ColorTranspCss]) }.
+            [ColourCss, ColourTranspCss]) }.
 
 % Border
 
@@ -340,16 +340,16 @@ tailwind(Style) -->
                   Pos,
                   Style) }.
 
-color_border(special(S), S) :- !.
-color_border(Color, CssColor) :-
-    ( has_alpha(Color)
-    -> Color_ = Color
-    ;  color_with_alpha(Color, "var(--pl-border-opacity,1)", Color_) ),
-    color_css(Color_, CssColor).
+colour_border(special(S), S) :- !.
+colour_border(Colour, CssColour) :-
+    ( has_alpha(Colour)
+    -> Colour_ = Colour
+    ;  colour_with_alpha(Colour, "var(--pl-border-opacity,1)", Colour_) ),
+    colour_css(Colour_, CssColour).
 
-tailwind('border-color'(ColorCss)) -->
-    "border-", color(Color), !,
-    { color_border(Color, ColorCss) }.
+tailwind('border-color'(ColourCss)) -->
+    "border-", colour(Colour), !,
+    { colour_border(Colour, ColourCss) }.
 
 tailwind('--pl-border-opacity'(Opacity)) -->
     "border-opacity-", num(Num), !,
@@ -381,16 +381,16 @@ direction_border_attr(r, 'border-right-width').
 direction_border_attr(b, 'border-bottom-width').
 direction_border_attr(l, 'border-left-width').
 
-color_divide(special(S), S) :- !.
-color_divide(Color, CssColor) :-
-    ( has_alpha(Color)
-    -> Color_ = Color
-    ;  color_with_alpha(Color, "var(--pl-divide-opacity,1)", Color_) ),
-    color_css(Color_, CssColor).
+colour_divide(special(S), S) :- !.
+colour_divide(Colour, CssColour) :-
+    ( has_alpha(Colour)
+    -> Colour_ = Colour
+    ;  colour_with_alpha(Colour, "var(--pl-divide-opacity,1)", Colour_) ),
+    colour_css(Colour_, CssColour).
 
-tailwind('&'('> * + *'('border-color'(ColorCss)))) -->
-    "divide-", color(Color), !,
-    { color_divide(Color, ColorCss) }.
+tailwind('&'('> * + *'('border-color'(ColourCss)))) -->
+    "divide-", colour(Colour), !,
+    { colour_divide(Colour, ColourCss) }.
 
 tailwind('--pl-divide-opacity'(Opacity)) -->
     "divide-opacity-", num(Number), !,
@@ -399,17 +399,17 @@ tailwind('--pl-divide-opacity'(Opacity)) -->
 tailwind('&'('> * + *'('border-style'(Style)))) -->
     "divide-", one_of(["solid", "dashed", "dotted", "double", "none"], Style), !.
 
-ring_color(special(Color), Color) :- !.
-ring_color(Color, ColorCss) :-
-    has_alpha(Color), !,
-    color_css(Color, ColorCss).
-ring_color(Color, ColorCss) :-
-    color_with_alpha(Color, "var(--pl-ring-opacity,1)", Color_),
-    color_css(Color_, ColorCss).
+ring_colour(special(Colour), Colour) :- !.
+ring_colour(Colour, ColourCss) :-
+    has_alpha(Colour), !,
+    colour_css(Colour, ColourCss).
+ring_colour(Colour, ColourCss) :-
+    colour_with_alpha(Colour, "var(--pl-ring-opacity,1)", Colour_),
+    colour_css(Colour_, ColourCss).
 
-tailwind('--pl-ring-color'(ColorCss)) -->
-    "ring-", color(Color), !,
-    { ring_color(Color, ColorCss) }.
+tailwind('--pl-ring-color'(ColourCss)) -->
+    "ring-", colour(Colour), !,
+    { ring_colour(Colour, ColourCss) }.
 
 tailwind('--pl-ring-opacity'(Opacity)) -->
     "ring-opacity-", num(Number), !,
@@ -420,10 +420,10 @@ tailwind(['--pl-ring-offset-width'(OffWidth),
     "ring-offset-", alternates([length(X), length_unit(X), num(X)]), !,
     { value_unit_css(X, OffWidth, _{zero_unit: "", number: _{unit: px}}) }.
 
-tailwind(['--pl-ring-offset-color'(OffColor),
+tailwind(['--pl-ring-offset-color'(OffColour),
           'box-shadow'("0 0 0 var(--pl-ring-offset-width, 0px) var(--pl-ring-offset-color), var(--pl-ring-shadow)")]) -->
-    "ring-offset-", color(Color), !,
-    { ring_color(Color, OffColor) }.
+    "ring-offset-", colour(Colour), !,
+    { ring_colour(Colour, OffColour) }.
 
 tailwind('--pl-ring-inset'("inset")) --> "ring-inset", !.
 tailwind('box-shadow'(Style)) -->
@@ -839,13 +839,13 @@ tailwind('&'('> * + *'(Style))) -->
 
 % svg
 
-tailwind(fill(ColorCss)) -->
-    "fill-", color(Color), !,
-    { color_css(Color, ColorCss) }.
+tailwind(fill(ColourCss)) -->
+    "fill-", colour(Colour), !,
+    { colour_css(Colour, ColourCss) }.
 
-tailwind(stroke(ColorCss)) -->
-    "stroke-", color(Color), !,
-    { color_css(Color, ColorCss) }.
+tailwind(stroke(ColourCss)) -->
+    "stroke-", colour(Colour), !,
+    { colour_css(Colour, ColourCss) }.
 
 tailwind('stroke-width'(Thickness)) -->
     "stroke-", num(number(Thickness)), !.
@@ -1045,15 +1045,15 @@ tailwind('list-style-position'(Type)) -->
     "list-", one_of(["inside", "outside"], Type), !.
 
 tailwind('&'('::placeholder'(Style))) -->
-    "placeholder-", color(Color), !,
-    { color_placeholder(Color, Style) }.
+    "placeholder-", colour(Colour), !,
+    { colour_placeholder(Colour, Style) }.
 
-color_placeholder(special(S), S) :- !.
-color_placeholder(Color, CssColor) :-
-    ( has_alpha(Color)
-    -> Color_ = Color
-    ;  color_with_alpha(Color, "var(--pl-placeholder-opacity,1)", Color_) ),
-    color_css(Color_, CssColor).
+colour_placeholder(special(S), S) :- !.
+colour_placeholder(Colour, CssColour) :-
+    ( has_alpha(Colour)
+    -> Colour_ = Colour
+    ;  colour_with_alpha(Colour, "var(--pl-placeholder-opacity,1)", Colour_) ),
+    colour_css(Colour_, CssColour).
 
 tailwind('--pl-placeholder-opacity'(Opacity)) -->
     "placeholder-opacity-", num(Val), !,
@@ -1062,16 +1062,16 @@ tailwind('--pl-placeholder-opacity'(Opacity)) -->
 tailwind('text-align'(Align)) -->
     "text-", one_of(["left", "center", "right", "justify"], Align), !.
 
-tailwind(color(ColorCss)) -->
-    "text-", color(Color), !,
-    { color_text(Color, ColorCss) }.
+tailwind(color(ColourCss)) -->
+    "text-", colour(Colour), !,
+    { colour_text(Colour, ColourCss) }.
 
-color_text(special(S), S) :- !.
-color_text(Color, CssColor) :-
-    ( has_alpha(Color)
-    -> Color_ = Color
-    ;  color_with_alpha(Color, "var(--pl-text-opacity,1)", Color_) ),
-    color_css(Color_, CssColor).
+colour_text(special(S), S) :- !.
+colour_text(Colour, CssColour) :-
+    ( has_alpha(Colour)
+    -> Colour_ = Colour
+    ;  colour_with_alpha(Colour, "var(--pl-text-opacity,1)", Colour_) ),
+    colour_css(Colour_, CssColour).
 
 tailwind('--pl-text-opacity'(Opacity)) -->
     "text-opacity-", num(Num), !,
