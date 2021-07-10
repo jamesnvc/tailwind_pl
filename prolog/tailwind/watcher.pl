@@ -1,5 +1,9 @@
 :- module(watcher, [start_watching_dirs/3,
                     stop_watching_dirs/1]).
+/** <module> filesystem watcher to automatically generate CSS
+
+@author James Cash
+*/
 
 :- use_module(library(apply_macros)).
 :- use_module(library(apply), [maplist/2]).
@@ -16,6 +20,13 @@ not_hidden_file(Path) :-
     file_base_name(Path, Name),
     \+ ( sub_atom(Name, 0, _, _, '.') ).
 
+%! start_watching_dirs(+Dirs, +OutputFile, -Watcher) is det.
+%
+%  Start watching the directories =Dirs= for file changes, outputting
+%  the combined CSS output as running generate:tw_from_file/2 on each
+%  changed file, outputting to =OutputFile=. =Watcher= will be unified
+%  with an opaque value which can be passed to stop_watching_dirs/1 to
+%  stop the watcher running.
 start_watching_dirs(Dirs, OutputFile, queues(WatcherQueue, BuilderQueue)) :-
     inotify:inotify_init(Watch, []),
     maplist({Watch}/[Dir]>>(
@@ -39,6 +50,9 @@ start_watching_dirs(Dirs, OutputFile, queues(WatcherQueue, BuilderQueue)) :-
     thread_create(build_css_output(BuilderQueue, OutputFile), _, []),
     thread_create(handle_file_changed(BuilderQueue, WatcherQueue, Watch), _, []).
 
+%! stop_watching_dirs(+Watcher) is det.
+%
+%  Stop the watcher that was started with the opaque watcher =Watcher=.
 stop_watching_dirs(queues(WatcherQueue, BuilderQueue)) :-
     thread_send_message(WatcherQueue, done),
     thread_send_message(BuilderQueue, done),

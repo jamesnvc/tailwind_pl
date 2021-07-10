@@ -3,6 +3,12 @@
                     colour_with_alpha/3,
                     as_transparent/2,
                     colour_css/2]).
+/** <module> CSS Colours
+
+DCGs and helper predicates for parsing and coverting colours.
+
+@author James Cash
+*/
 
 :- use_module(library(dcg/basics), [xdigits//1, number//1]).
 :- use_module(library(dcg/high_order), [optional//2]).
@@ -309,6 +315,10 @@ colour(Colour) --> predef_colour(Colour), !.
 has_alpha(rgba(_, _, _, _)).
 has_alpha(hsla(_, _, _, _)).
 
+%! colour_with_alpha(+Colour0, +Alpha, -Colour1) is semidet.
+%
+%  When =Colour0= is a colour without an alpha channel, unifies
+%  =Color1= with =Colour0= but having the alpha value =Alpha=.
 colour_with_alpha(rgb(R, G, B), Alpha, rgba(R, G, B, Alpha)).
 colour_with_alpha(hsl(H, S, L), Alpha255, hsla(H, S, L, Alpha)) :-
     format(string(Alpha), "calc(~w / 255)", [Alpha255]).

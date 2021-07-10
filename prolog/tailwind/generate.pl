@@ -1,5 +1,11 @@
 :- module(generate, [text_tw_css/2,
                      tw_from_file/2]).
+/** <module> generate CSS from text containing selectors
+
+Predicates for generating tailwind CSS stylesheets based on used selectors
+
+@author James Cash
+*/
 
 :- use_module(library(apply_macros)).
 :- use_module(library(apply), [maplist/2, convlist/3]).
@@ -50,6 +56,12 @@ make_style(ClsName, [], Variants, Styles, Css) :- !,
 make_style(ClsName, Media, Variants, Styles, '@media'(and(Media), NestedStyle)) :-
     make_style(ClsName, [], Variants, Styles, NestedStyle).
 
+%! text_tw_css(+Text, -Css) is det.
+%
+%  True when =Text= is an atom or string containing zero or more
+%  space-seperated Tailwind-style selectors and =Css= is the
+%  corresponding list of CSS styles, suitable to be fed to
+%  css_write:write_css/2.
 text_tw_css(Text, Css) :-
     text_to_string(Text, String),
     split_string(String, " ", "", Strs),
@@ -106,6 +118,12 @@ extract_text_from_terms([Term|Terms], Tail, Tail0), compound(Term) =>
 extract_text_from_terms([_|Terms], Tail, Tail0) =>
     extract_text_from_terms(Terms, Tail, Tail0).
 
+%! tw_from_file(+File, -Css) is det.
+%
+%  When =File= is the path to a file, then =Css= will be the
+%  corresponding list of CSS selectors & styles corresponding to all
+%  the tailwind-style selectors found inside =File=, suitable to be
+%  used as input to css_write:write_css/2.
 tw_from_file(File, Css) :-
     text_from_file(File, Texts),
     all_tws_from(Texts, Css).

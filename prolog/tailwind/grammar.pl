@@ -1,4 +1,10 @@
 :- module(grammar, [tailwind//1, prefixes//2]).
+/** <module> Tailwind CSS grammar
+
+DCGs for parsing Tailwind selectors to the corresponding CSS
+
+@author James Cash
+*/
 
 :- use_module(library(apply_macros)).
 :- use_module(library(apply), [maplist/3]).
@@ -13,6 +19,12 @@
                         as_transparent/2,
                         colour_with_alpha/3]).
 
+%! prefixes(-MediaQueries, -StateVariants)// is det.
+%
+%  DCG to parse possibly-empty media query & state variant prefixes of
+%  a tailwind selector; e.g. in "lg:hover:text-blue" would have
+%  =MediaQueries= be [min_width("1024px")] and =StateVariants= be
+%  [inner(hover)].
 prefixes(Medias, States) -->
     media_queries(Medias), state_variants(States).
 
@@ -60,6 +72,10 @@ state_variant(inner("nth-child(even)")) --> "even", !.
 :- discontiguous tailwind//1.
 
 % Flex
+
+%! tailwind(Styles)// is semidet.
+%
+%  DCG to parse the many possible Tailwind selectors.
 tailwind('flex-grow'(V)) -->
     "flex-grow-", optional(fraction(N), num(N)),
     { value_unit_css(N, V, _{}) }.
