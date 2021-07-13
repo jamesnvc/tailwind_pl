@@ -1,9 +1,11 @@
 # Tailwind_pl
 
-Based on [Girouette](https://github.com/green-coder/girouette), Tailwind_pl is a pack for SWI-Prolog that will watch the given directories for changes to Prolog files, search for [TailwindCSS](https://tailwindcss.com/docs)-style CSS selectors and generates a CSS file containing just the used selectors.
+Tailwind_pl is a pack for SWI-Prolog that lets you do CSS styling with [TailwindCSS](https://tailwindcss.com/docs) without any Node.js dependency. It is effectively a rewrite of [Tailwind's JIT compiler](https://tailwindcss.com/docs/just-in-time-mode) in Prolog, inspired by [Girouette](https://github.com/green-coder/girouette)'s approach in Clojure.
 
-This lets you use Tailwind-style classes, but without the overhead of having to pull in an enormous stylesheet with all possible styles.
-This also allows more dynamic class-names that, with exact colours or numbers that would otherwise be unreasonable to use.
+Tailwind_pl watches the given directories for changes to Prolog files, searches for Tailwind-style CSS selectors and generates a CSS file containing just the used selectors.
+
+Tailwind_pl also extends Tailwind by allowing more dynamic class-names that use exact colours or numbers (ex. `w-42%`).
+
 
 ## Installation
 
