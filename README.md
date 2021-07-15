@@ -111,3 +111,16 @@ p(Text) -->
     html(p(class(['text-sm', 'text-blue', 'hover:opacity-50']),
            Text)).
 ```
+
+## Differences from Tailwind
+
+All the selectors from Tailwind should also be supported here.
+If any don't work, please file a bug!
+
+Additionally, some new features are supported, taking advantage of the fact that the styles are created dynamically as needed.
+
+  - Colours can be specified not just as the predefined colour names (e.g. `pink-500`) but as RGB(A) and HSL(A); for example, all of the following are valid styles: `text-#c0ffee`, `bg-rgb-cafeba`, `from-hsla-50-60-70-0.5`. This feature is copied from Girouette.
+
+  - in most places where a size is given as just a number in Tailwind (e.g. `mx-4` which will set the left and right margins to `1rem`), you can use arbitrary distances -- e.g. `mx-2.3rem, `font-size-17.5px`. This feature is copied from Girouette.
+
+  - Similar to the `group-hover:`, `group-focus:`, etc, you can use `group-attr-SOMEATTR:` which will effective do `.group[SOMEATTR]`, as `group-hover` does `.group:hover`. This can be used, for example, to do put the `group` class on a `<details>` element and `group-attr-open:hidden` on some child, do hide said element when the detail element is open
