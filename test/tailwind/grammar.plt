@@ -248,5 +248,9 @@ test(rotate_2,
 test(text_color_1,
     [ true(Style == color("rgba(255, 255, 255, var(--pl-text-opacity,1))") )]) :-
     phrase(tailwind(Style), `text-white`).
+test(text_color_2,
+    [ true(Style == color("hsla(50, 60, 70, 0.5)") )]) :-
+    phrase(tailwind(Style), `text-hsla-50-60-70-0.5`).
+
 
 :- end_tests(tailwind).

@@ -297,9 +297,9 @@ colour(rgb(R, G, B)) -->
       rgb_values(Digits, R, G ,B) }, !.
 
 colour(hsla(H, S, L, A)) -->
-    "hsla-", number(H), "-", number(S), "-", number(L), "-", number(A).
+    "hsla-", number(H), "-", number(S), "-", number(L), "-", number(A), !.
 colour(hsl(H, S, L)) -->
-    "hsl-", number(H), "-", number(S), "-", number(L).
+    "hsl-", number(H), "-", number(S), "-", number(L), !.
 
 colour(special(transparent)) --> "transparent", !.
 colour(special(currentColour)) --> "current", !.
@@ -344,7 +344,7 @@ colour_css(rgba(R, G, B, A), S) :-
 colour_css(rgba(R, G, B, A), S) :-
     format(string(S), "#~|~`0t~16r~2+~|~`0t~16r~2+~|~`0t~16r~2+~|~`0t~16r~2+",
            [R, G, B, A]).
-colour_css(hsl(H, S, L), S) :-
-    format(string(S), "hsl(~w, ~w, ~w)", [H, S, L]).
-colour_css(hsla(H, S, L, A), S) :-
-    format(string(S), "hsla(~w, ~w, ~w, ~w)", [H, S, L, A]).
+colour_css(hsl(H, S, L), Css) :-
+    format(string(Css), "hsl(~w, ~w, ~w)", [H, S, L]).
+colour_css(hsla(H, S, L, A), Css) :-
+    format(string(Css), "hsla(~w, ~w, ~w, ~w)", [H, S, L, A]).

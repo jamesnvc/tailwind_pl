@@ -88,6 +88,7 @@ test(style_from_file_2,
                                    '50%'(transform("translateY(0)"),
                                          'animation-timing-function'("cubic-bezier(0,0,0.2,1)"))]),
                      '.hover\\:bg-pink-100:hover'('background-color'("rgba(252, 231, 243, var(--pl-bg-opacity, 1))")),
+                     '.text-hsla-50-60-70-0\\.5'(color("hsla(50, 60, 70, 0.5)")),
                      '.text-red-500'(color("rgba(239, 68, 68, var(--pl-text-opacity,1))"))
 
                     ])]) :-

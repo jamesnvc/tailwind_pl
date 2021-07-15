@@ -92,7 +92,7 @@ form_handler(Action, Request) :-
 
 user:body(default, Body) -->
     html(
-        body(class(['bg-#c0ffee']),
+        body(class(['bg-#c0ffee', 'text-hsla-50-60-70-0.5']),
              [div('data-frame-id'(app), Body), \hotwire_script_tag])).
 
 hotwire_script_tag -->

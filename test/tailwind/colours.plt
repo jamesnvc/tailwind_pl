@@ -23,5 +23,11 @@ test(colours_5,
 test(colours_6,
     [ true( Colour == rgb(0xff, 0xff, 0xff) )]) :-
     phrase(colour(Colour), `white`).
+test(colours_7,
+    [ true( Colour == hsla(50, 60, 70, 0.5) )]) :-
+    phrase(colour(Colour), `hsla-50-60-70-0.5`).
+test(colours_8,
+    [ true( Colour == hsl(50, 60, 70) )]) :-
+    phrase(colour(Colour), `hsl-50-60-70`).
 
 :- end_tests(colours).
