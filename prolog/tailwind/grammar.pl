@@ -8,7 +8,7 @@ DCGs for parsing Tailwind selectors to the corresponding CSS
 
 :- use_module(library(apply_macros)).
 :- use_module(library(apply), [maplist/3]).
-:- use_module(library(dcg/basics), [integer//1]).
+:- use_module(library(dcg/basics), [integer//1, string_without//2]).
 :- use_module(library(dcg/high_order), [optional//2]).
 :- use_module(library(yall)).
 
@@ -53,7 +53,10 @@ state_variants([]) --> [].
 state_variant(outer(Variant)) -->
     "group-", one_of(["hover", "focus", "disabled", "active"],
                      GroupVariant), !,
-    { format(atom(Variant), '.group:~w', [GroupVariant]) }.
+    { format(atom(Variant), ".group:~w", [GroupVariant]) }.
+state_variant(outer(Variant)) -->
+    "group-attr-", string_without(":", Attr), !,
+    { format(atom(Variant), ".group[~s]", [Attr]) }.
 state_variant(inner(Variant)) -->
     one_of(
         ["hover", "focus", "disabled", "active",

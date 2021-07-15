@@ -15,6 +15,11 @@ test(prefixes_2,
             ]-[inner('first-of-type'), outer('.group:disabled'), inner("first-child")]) ]) :-
     phrase(grammar:prefixes(Medias, States),
            `light:sm:first-of-type:group-disabled:first:`).
+test(prefixes_3,
+     [ true(Medias-States == [
+            ]-[outer('.group[open]')]) ]) :-
+    phrase(grammar:prefixes(Medias, States),
+           `group-attr-open:`).
 
 test(flex_shorthand_1,
     [ true(Flex == flex("5 5 0%")) ]) :-

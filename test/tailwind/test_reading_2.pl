@@ -230,6 +230,10 @@ info_page -->
              h1("Info"),
              p(class('hover:animate-bounce'),
                "here's some stuff, some information"),
+             details([class(group)],
+                     [summary(span(class('group-attr-open:hidden'),
+                                   "Hello!")),
+                      p("Some stuff")]),
              a(href(/), "Back to home")
             ])
     ).

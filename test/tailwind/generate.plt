@@ -31,6 +31,9 @@ test(variants_1,
 test(variants_2,
     [ true(Css == ['.group:hover .group-hover\\:bg-rgba-c0ffeeab'('background-color'("#c0ffeeab"))]) ]) :-
     text_tw_css('group-hover:bg-rgba-c0ffeeab', Css).
+test(variants_3,
+    [ true(Css == ['.group[open] .group-attr-open\\:hidden'(display("none"))]) ]) :-
+    text_tw_css(`group-attr-open:hidden`, Css).
 
 test(media_1,
     [ true(Css == ['@media'(and([min_width("768px")]),
@@ -79,6 +82,7 @@ test(style_from_file_2,
                               '.md\\:mt-1'(['margin-top'("0.25rem")])),
                      '.h-100\\%'(height("100%")),
                      '.bg-\\#c0ffee'('background-color'("rgba(192, 255, 238, var(--pl-bg-opacity, 1))")),
+                     '.group[open] .group-attr-open\\:hidden'(display("none")),
                      '.hidden'(display("none")),
                      '.hover\\:animate-bounce:hover'([animation("bounce 1s infinite")]),
                      '@keyframes'(bounce,
