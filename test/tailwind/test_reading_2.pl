@@ -92,7 +92,8 @@ form_handler(Action, Request) :-
 
 user:body(default, Body) -->
     html(
-        body([div('data-frame-id'(app), Body), \hotwire_script_tag])).
+        body(class(['bg-#c0ffee']),
+             [div('data-frame-id'(app), Body), \hotwire_script_tag])).
 
 hotwire_script_tag -->
     js_script({|javascript(_)||

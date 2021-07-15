@@ -20,7 +20,7 @@ tw_selector(Media, Variants, Styles) -->
 
 word_style(Word, Style) :-
     string_codes(Word, Codes),
-    re_replace("([:/%])"/g, "\\$1", Word, EscapedWord),
+    re_replace("([^-a-zA-Z0-9])"/g, "\\$1", Word, EscapedWord),
     format(atom(Sel), ".~w", [EscapedWord]),
     phrase(tw_selector(Media, Variants, Styles), Codes),
     ( is_list(Styles)
