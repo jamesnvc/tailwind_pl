@@ -257,5 +257,8 @@ test(text_color_2,
     [ true(Style == color("hsla(50, 60, 70, 0.5)") )]) :-
     phrase(tailwind(Style), `text-hsla-50-60-70-0.5`).
 
+test(display_inline,
+    [ true(Style == display(inline)) ]) :-
+    phrase(tailwind(Style), `inline`).
 
 :- end_tests(tailwind).

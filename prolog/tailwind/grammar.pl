@@ -677,7 +677,7 @@ tailwind('box-sizing'("content-box")) --> "box-content", !.
 tailwind(display("none")) --> "hidden", !.
 tailwind(display(Display)) -->
     one_of(["block", "inline-block", "flex", "inline-flex",
-            "inline-grid", "grid", "table-column-group",
+            "inline-grid", "inline", "grid", "table-column-group",
             "table-footer-group", "table-header-group",
             "table-row-group",
             "table-column", "table-cell", "table-row", "table-caption",
