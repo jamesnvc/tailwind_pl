@@ -1,6 +1,6 @@
 name(tailwind_pl).
 title('Tailwind-style CSS generator for Prolog').
-version('1.1.0').
+version('1.1.1').
 author('James N. V. Cash', 'james.cash@occasionallycogent.com').
 home('https://github.com/jamesnvc/tailwind_pl').
 download('https://github.com/jamesnvc/tailwind_pl/releases/*.zip').
