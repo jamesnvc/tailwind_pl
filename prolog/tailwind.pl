@@ -1,4 +1,4 @@
 :- module(tailwind, []).
 
 :- reexport([tailwind/watcher,
-             tailwind/tw_reset]).
+             library(tailwind_generate/tw_reset)]).
