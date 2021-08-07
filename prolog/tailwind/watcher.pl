@@ -12,7 +12,7 @@
 :- use_module(library(inotify), []).
 :- use_module(library(yall)).
 
-:- use_module(generate, [tw_from_file/2]).
+:- use_module(library(tailwind_generate), [tw_from_file/2]).
 
 :- dynamic watched_file_css/2.
 
@@ -23,7 +23,7 @@ not_hidden_file(Path) :-
 %! start_watching_dirs(+Dirs, +OutputFile, -Watcher) is det.
 %
 %  Start watching the directories =Dirs= for file changes, outputting
-%  the combined CSS output as running generate:tw_from_file/2 on each
+%  the combined CSS output as running tailwind_generate:tw_from_file/2 on each
 %  changed file, outputting to =OutputFile=. =Watcher= will be unified
 %  with an opaque value which can be passed to stop_watching_dirs/1 to
 %  stop the watcher running.
